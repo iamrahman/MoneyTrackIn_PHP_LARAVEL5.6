@@ -63,7 +63,7 @@ table th {
 </style>
 @extends('layouts.side')
 <!-- #######################   Profile Division      #################### -->
-<div class="col-md-9" style="background-color: white; height: 96vh;">
+<div class="col-md-9" style="background-color: white; height: auto; min-height:105vh;">
 <br>
 <center>
 <div class="col-md-12" style="width:100%;">      

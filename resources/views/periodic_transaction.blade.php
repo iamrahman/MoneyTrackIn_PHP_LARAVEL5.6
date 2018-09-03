@@ -19,7 +19,7 @@ ul li{
 
 @extends('layouts.side')
 <!-- #######################   Profile Division      #################### -->
-<div class="col-md-9" style="background-color: white; height: 96vh;">
+<div class="col-md-9" style="background-color: white; height: auto; min-height:105vh;">
 <br>
 <div class="col-md-8 col-md-offset-2" style="background-color: white;box-shadow:1px 1px 5px black; height: auto;">
 <center>
@@ -70,7 +70,6 @@ ul li{
     <label id="tid">Tags</label>
     <input type="text" id="textid" pattern="[a-z]+([,]+[a-z]+([a-z])?)*" class="form-control" name="tags" title="Seprate the tags with comma and lowercase only.Eg. health,vehicle" placeholder="Enter tags in lower case only using comma. Eg. food,health,vehicle" required>
   </div>
-
   <center>
   <div class="form-group col-md-8 col-md-offset-5">
   <button type="submit" style="float:left; width:30%;" class="btn btn-success">Submit</button>

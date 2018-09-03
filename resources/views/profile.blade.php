@@ -24,7 +24,7 @@ ul li{
 @extends('layouts.side')
 <div class="tab-content" id="myTabContent">
 <!-- #######################   Profile Division      #################### -->
-<div class="col-md-9 tab-pane fade in active" style="background-color: white; height: 100vh;" id="profile">
+<div class="col-md-9 tab-pane fade in active" style="background-color: white;height: auto; min-height:105vh;" id="profile">
 <br>
 <table class="table">
     <thead>

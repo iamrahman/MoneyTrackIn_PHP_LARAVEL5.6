@@ -29,12 +29,21 @@
       <ul class="nav navbar-nav">
         <li><a href="#" style="color:white;">About Us</a></li>
         <li><a href="#" style="color:white;">Services</a></li>
-        <li><a href="/contact_us" style="color:white;">Contact</a></li>
+        <li><a href="/contact_us" style="color:white;">Contacts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       @if (Auth::check())
       <li><a href="/dashboard" style="color:#ffffff;"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
         <li><a href="/logout" style="color:#ffffff;"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <span style="color:white;" class="glyphicon glyphicon-bell"></span><span class="badge" style="background-color:red;">{{ count(Session::get('user_alert')) }}</span></a>
+        <ul class="dropdown-menu">
+        @foreach (Session::get('user_alert') as $data)
+        <li><a href="#">{{ nl2br($data->notification) }}</a></li>
+        @endforeach
+        </ul>
+      </li>
       @else
       <li><a href="/signup" style="color:#ffffff;"><span class="glyphicon glyphicon-log-in"></span> Signup</a></li>
       @endif

@@ -14,6 +14,7 @@ use App\Periodic;
 use Auth;
 use Session;
 use Storage;
+use App\Alert;
 class AccountController extends Controller
 {
     /**
@@ -186,6 +187,14 @@ class AccountController extends Controller
                          $query_tags->transactions()->attach($transaction_id);
                         }
                     }
+                    if($total_amount<500){
+                        $alert = new Alert;
+                        $alert->user_id = Auth::user()->id;
+                        $alert->notification = "You account ".$to." is ".'<br>'."ruuning with low balance.";
+                        $alert->save();
+                        $user_alert = Alert::select('notification')->where('user_id',Auth::user()->id)->get();
+                        Session::put('user_alert',$user_alert);
+                    }
                     return back()->with('success','Rs.'.$trans_amount.' has been debit from '. $to .' successfully.!!');
                 }
                 else{
@@ -258,7 +267,7 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        echo "Echo";
     }
     public function accountName(){
         $id = Auth::user()->id;
@@ -268,7 +277,7 @@ class AccountController extends Controller
     public function history(){
         $id = Auth::user()->id;
         $accounts_data = Account::where('user_id', $id)->get();
-        $transaction_data = Transaction::where('account_id', $id)->orderBy('date', 'DESC')->paginate(13);
+        $transaction_data = Transaction::where('account_id', $id)->orderBy('date', 'DESC')->paginate(19);
         return view('history', compact('accounts_data', 'transaction_data'));
     }
     public function inAccountTransfer(){
@@ -372,6 +381,11 @@ class AccountController extends Controller
             return back()->with('error','Periodic Transaction is already set in this account. Please try another account');
         }
     }
+    public function setting(){
+        $periodic = Periodic::where('user_id',Auth::user()->id)->get();
+        $account_name = Account::where('user_id',Auth::user()->id)->get();
+        return view('account_setting',compact('periodic','account_name'));
+    }
     public function graphsData(){
         $id = Auth::user()->id;
         $users_tags = Tag::where('user_id', $id)->get();
@@ -421,7 +435,6 @@ class AccountController extends Controller
         ]);
         $username = $request->input('username');
         $password = $request->input('password');
-        
         if(Auth::attempt(['username'=> $username, 'password'=> $password]))
         {
             $id = Auth::user()->id;
@@ -429,6 +442,8 @@ class AccountController extends Controller
             $transaction_data = Transaction::where('account_id', $id)->get();
             $img_url = Storage::url(Auth::user()->photo);
             Session::put('img_url',$img_url);
+            $user_alert = Alert::select('notification')->where('user_id',Auth::user()->id)->get();
+            Session::put('user_alert',$user_alert);
             return view('/dashboard', compact('accounts_data', 'transaction_data'));
         }
         else{

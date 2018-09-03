@@ -32,7 +32,7 @@ ul li{
 @extends('layouts.side')
 <div class="tab-content" id="myTabContent">
 <!-- #######################   Profile Division      #################### -->
-<div class="col-md-9" style="background-color: white; height: 100vh;" id="profile">
+<div class="col-md-9" style="background-color: white; height: auto; min-height:105vh;" id="profile">
 <br>
 <legend>Update your Profile </legend>
 <form action="{{ route('users.update', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">

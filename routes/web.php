@@ -34,6 +34,9 @@ Route::resource('users', 'UserController');
 
 Route::post('/periodicTransaction', 'AccountController@periodicUpdate')->middleware('authenticated');
 
+Route::post('/periodic', 'UserController@delete_periodic')->middleware('authenticated');
+Route::post('/account_delete', 'UserController@account_delete')->middleware('authenticated');
+Route::post('/change_password', 'UserController@change_password')->middleware('authenticated');
 //Open Account
 Route::resource('accounts', 'AccountController')->middleware('authenticated');
 
@@ -57,4 +60,4 @@ Route::get('periodic_transaction', 'AccountController@periodicTransaction')->mid
 
 Route::get('/graphs_data', 'AccountController@graphsdata')->middleware('authenticated');
 
-Route::get('/account_setting', 'AccountController@account_setting')->middleware('authenticated');
+Route::get('/account_setting', 'AccountController@setting')->middleware('authenticated');

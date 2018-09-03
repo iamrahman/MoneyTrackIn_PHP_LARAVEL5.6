@@ -6,6 +6,8 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Periodic;
+use App\Account;
 use Hash;
 use Auth;
 use Mail;
@@ -166,5 +168,39 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function delete_periodic(Request $request){
+        Periodic::where('id',$request->input('id'))->delete();
+        return back();
+    }
+    public function account_delete(Request $request){
+        Account::where('id',$request->input('id'))->delete();
+        return back();
+    }
+    public function change_password(Request $request){
+        $validatedData = $request->validate([
+            'password' => 'required',
+            'npassword' => 'required',
+            'rnpassword' => 'required',
+        ]);
+        $pass= $request->input('password');
+        $npass= $request->input('npassword');
+        $rnpass= $request->input('rnpassword');
+        if($npass == $rnpass){
+            $opass = Auth::user()->password;
+            if(Hash::check($pass,$opass)){
+                //$user = User::find('id',Auth::user()->id);
+                echo "ff";
+                //$user->password = Hash::make($opass);
+                //$user->save();
+                //return back('success','Password has been changed successfuly');
+            }
+            else{
+                return back('error','Password does not matched with Old password.');
+            }
+        }
+        else{
+            return back('error','Password doest not match. Please try again.');
+        }
     }
 }
