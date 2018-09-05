@@ -54,8 +54,7 @@ ul li{
     <option value="1">1 Day</option>
     <option value="2">1 Week</option>
     <option value="3">1 months</option>
-    <option value="4">6 months</option>
-    <option value="5">1 Years</option>
+    <option value="4">1 Years</option>
     </select>
   </div><br>
   <div class="form-group col-md-8 col-md-offset-2">

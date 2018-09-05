@@ -172,10 +172,11 @@ class AccountController extends Controller
                     $tag_length = sizeof($myTags);
                     $transaction_id = $trans->id; //trans id
                     for($i=0;$i<$tag_length;$i++){   
-                    $query_tags = Tag::where('user_id', $account)->where('name', $myTags[$i])->first();
+                    $query_tags = Tag::where('user_id', $account)->where('account',$to)->where('name', $myTags[$i])->first();
                        if(!$query_tags){
                           $tag = new Tag;
                           $tag->name = $myTags[$i];
+                          $tag->account = $to;
                           $tag->expenditure = $trans_amount;
                           $tag->user_id = Auth::user()->id;
                           $tag->save();
@@ -183,6 +184,7 @@ class AccountController extends Controller
                        }
                         else{
                          $query_tags->expenditure = $query_tags->expenditure + $trans_amount;
+                         $query_tags->account = $to;
                          $query_tags->save();
                          $query_tags->transactions()->attach($transaction_id);
                         }
@@ -399,29 +401,39 @@ class AccountController extends Controller
             $tags_expnd[$i] = $tag->expenditure;
             $i++;
         }
-        return view('graphs', compact('tags_user_name','tags_expnd','accounts_name','heading'));
+        $account = "All Account";
+        return view('graphs', compact('account','tags_user_name','tags_expnd','accounts_name','heading'));
     }
     public function graphfilter(Request $request)
     {
-        $from = $request->input('from_date')." "."00:00:00";
-        $to = $request->input('to_date')." "."12:59:59";
         $account = $request->input('from_account');
+        if($account == 'All Account'){
         $id = Auth::user()->id;
-        $users_tags = Tag::where('user_id', $id)->where('created_at', '>=', $from)->where('created_at', '<=', $to)->get();
-        $accounts_data = Account::where('user_id', $id)->where('name',$account)->get();
+        $users_tags = Tag::where('user_id', $id)->get();
         $accounts_name = Account::where('user_id', $id)->get();
-        $tags_user_id = [];
-        $heading = "The expeditures data is from ".$request->input('from_date')." to ".$request->input('to_date');
+        $heading = "The expeditures data is from ".$account;
         $i = 0;
         foreach ($users_tags as $tag){
-            $tags_user_id[$i] = $tag->id;
+            $tags_user_id[$i] = $tag->account;
             $tags_user_name[$i] = $tag->name;
             $tags_expnd[$i] = $tag->expenditure;
             $i++;
         }
-        //$users = Transaction::select('account_name')->where('account_id', $id)->get();
-        //echo $users;
-        return view('graphs', compact('tags_user_name','tags_expnd','accounts_data','accounts_name','heading'));
+        }
+        else{
+        $id = Auth::user()->id;
+        $users_tags = Tag::where('user_id', $id)->where('account', $account)->get();
+        $accounts_name = Account::where('user_id', $id)->get();
+        $heading = "The expeditures data is from ".$account;
+        $i = 0;
+        foreach ($users_tags as $tag){
+            $tags_user_id[$i] = $tag->account;
+            $tags_user_name[$i] = $tag->name;
+            $tags_expnd[$i] = $tag->expenditure;
+            $i++;
+        }
+        }
+        return view('graphs', compact('account','tags_user_name','tags_expnd','accounts_data','accounts_name','heading'));
     }
     public function account_setting(){
         $id = Auth::user()->id;

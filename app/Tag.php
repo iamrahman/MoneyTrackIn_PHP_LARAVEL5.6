@@ -9,7 +9,7 @@ use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 class Tag extends \Eloquent implements Authenticatable
 {
     use AuthenticableTrait;
-    protected $fillable = ["id", "name", "user_id","expenditures"];
+    protected $fillable = ["id", "name","account", "user_id","expenditures"];
 
     public function transactions()
     {

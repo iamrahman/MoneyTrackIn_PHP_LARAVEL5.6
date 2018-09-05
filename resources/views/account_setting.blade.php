@@ -1,7 +1,7 @@
 @extends('layouts.header')
 @section('content')
 <?php
-$duration = array("Null","1 Day","1 Week","1 month","6 months","1 year")
+$duration = array("Null","1 Day","1 Week","1 month","1 year");
 ?>
 <style>
 h3{

@@ -31,7 +31,7 @@ td {
 </style>
 @extends('layouts.side')
 <!-- #######################   Profile Division      #################### -->
-<div class="col-md-9" style="background-color: white; height: 96vh;">
+<div class="col-md-9" style="background-color: white; height: auto; min-height:105vh;">
 <br>
 <center>
 <div class="col-md-12 table-responsive" style="width:100%;">      
@@ -49,7 +49,6 @@ td {
         <th>Amount</th>
         <th>Type</th>
         <th>Description</th>
-        <th>Tags</th>
       </tr>
     <tbody>
     <?php $total =0;
@@ -70,7 +69,6 @@ td {
         <td style="color:darkgreen;">{{ $type[$user->type] }}</td>
         @endif
         <td>{{ $user->description }}</td>
-        <td>{{ $user->tags }}</td>
       </tr>
     @endforeach
     </tbody>

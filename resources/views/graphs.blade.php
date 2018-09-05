@@ -54,24 +54,20 @@ chart.render();
 <br><br>
 <form action="/graph_filter" method="POST">
 {{ csrf_field() }}
-	<div class="form-group col-md-4">
-    <label for="date">From:</label>
-    <input type="date" class="form-control" name="from_date">
-	</div>
-	<div class="form-group col-md-4">
-    <label for="date">To:</label>
-    <input type="date" class="form-control" name="to_date">
-	</div>
-	<div class="form-group col-md-4">
+	<div class="form-group col-md-4 col-md-offset-4">
     <label for="account">Account Name:</label>
 	<select class="form-control" name="from_account">
-    <option value="null">All Accounts</option>
+	<option value="{{ $account }}" selected='selected'>{{ $account }}</option>
+    <option value="All Account">All Account</option>
     @foreach($accounts_name as $user)
         <option value="{{ $user->name}}">{{ $user->name }}</option>
     @endforeach
     </select>
 	</div>
-	<center> <button type="submit" class="btn" style="background-color:#660033;color: white;"> &nbsp;&nbsp; Show &nbsp;&nbsp;</button></center><br>
+	<div class="form-group col-md-4">
+	<br>
+	<button type="submit" class="btn" style="background-color:#660033;color: white;"> &nbsp;&nbsp; Show &nbsp;&nbsp;</button>
+	</div>
 </form>
 <?php if($set){?>
 <br><br>
