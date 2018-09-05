@@ -183,24 +183,23 @@ class UserController extends Controller
             'npassword' => 'required',
             'rnpassword' => 'required',
         ]);
-        $pass= $request->input('password');
         $npass= $request->input('npassword');
         $rnpass= $request->input('rnpassword');
         if($npass == $rnpass){
             $opass = Auth::user()->password;
-            if(Hash::check($pass,$opass)){
-                //$user = User::find('id',Auth::user()->id);
-                echo "ff";
-                //$user->password = Hash::make($opass);
-                //$user->save();
-                //return back('success','Password has been changed successfuly');
+            $id = Auth::user()->id;
+            if(Hash::check($request->input('password'), $opass)){
+                $user = User::find($id);
+                $user->password = Hash::make($opass);
+                $user->save();
+                return back()->with('success','Password has been changed successfuly');
             }
             else{
-                return back('error','Password does not matched with Old password.');
+                return back()->with('error','Password does not matched with Old password.');
             }
         }
         else{
-            return back('error','Password doest not match. Please try again.');
+            return back()->with('error','Password doest not match. Please try again.');
         }
     }
 }

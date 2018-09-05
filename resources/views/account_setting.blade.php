@@ -42,6 +42,7 @@ ul li{
     <thead>
       <tr>
         <th>Account Name</th>
+        <th>Balance</th>
         <th>Acitivity</th>
       </tr>
     </thead>
@@ -49,6 +50,7 @@ ul li{
     @foreach($account_name as $name)
     <tr>
     <td>{{ $name->name }}</td>
+    <td>{{ $name->current_balance }}</td>
     <td>
     <form action="/account_delete" method="POST">{{ csrf_field() }}
     <input type="text" name="id" value="{{ $name->id }}" hidden>
