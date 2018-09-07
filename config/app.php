@@ -147,7 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
-
+        Igoshev\Captcha\Providers\CaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...

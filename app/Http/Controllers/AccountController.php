@@ -147,6 +147,13 @@ class AccountController extends Controller
                 $trans->type = 0;
                 $update->save();
                 $trans->save();
+                if($total_amount >500){
+                    $notify= "You account ".$to." is "."ruuning with low balance.";
+                    $alert = Alert::where('user_id',Auth::user()->id)->where('notification',$notify);
+                    $alert->delete();
+                    $user_alert = Alert::select('notification')->where('user_id',Auth::user()->id)->get();
+                    Session::put('user_alert',$user_alert);
+                }
                 return back()->with('success','Rs.'.$trans_amount.' has been credit to'. $to .' successfully.!!');
             }
             else if($trans_type == 0){

@@ -3,6 +3,64 @@
 <?php
 $duration = array("Null","1 Day","1 Week","1 month","1 year");
 ?>
+<script>
+var x = '<span class="glyphicon glyphicon-triangle-right"></span>';
+var x1 = '<span class="glyphicon glyphicon-triangle-right"></span>';
+var x2 = '<span class="glyphicon glyphicon-triangle-right"></span>';
+var x3 = '<span class="glyphicon glyphicon-triangle-right"></span>';
+function togDefault(){
+  document.getElementById('l1').innerHTML = x;
+  document.getElementById('l2').innerHTML = x1;
+  document.getElementById('l3').innerHTML = x2;
+  document.getElementById('l4').innerHTML = x3;
+  document.getElementById('dd').click();
+}
+window.onload = togDefault;
+function tog(){
+  var y = '<span class="glyphicon glyphicon-triangle-right"></span>';
+  var z = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    if (x == y) {
+      document.getElementById('l1').innerHTML = z;
+      x = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    }else{
+      document.getElementById('l1').innerHTML = y;
+      x = '<span class="glyphicon glyphicon-triangle-right"></span>';
+    }
+}
+function tog1(){
+  var y = '<span class="glyphicon glyphicon-triangle-right"></span>';
+  var z = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    if (x1 == y) {
+      document.getElementById('l2').innerHTML = z;
+      x1 = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    }else{
+      document.getElementById('l2').innerHTML = y;
+      x1 = '<span class="glyphicon glyphicon-triangle-right"></span>';
+    }
+}
+function tog2(){
+  var y = '<span class="glyphicon glyphicon-triangle-right"></span>';
+  var z = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    if (x2 == y) {
+      document.getElementById('l3').innerHTML = z;
+      x2 = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    }else{
+      document.getElementById('l3').innerHTML = y;
+      x2 = '<span class="glyphicon glyphicon-triangle-right"></span>';
+    }
+}
+function tog3(){
+  var y = '<span class="glyphicon glyphicon-triangle-right"></span>';
+  var z = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    if (x3 == y) {
+      document.getElementById('l4').innerHTML = z;
+      x3 = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+    }else{
+      document.getElementById('l4').innerHTML = y;
+      x3 = '<span class="glyphicon glyphicon-triangle-right"></span>';
+    }
+}
+</script>
 <style>
 h3{
     color:white;
@@ -26,14 +84,14 @@ ul li{
     <p style="color:green"><span class="glyphicon glyphicon-ok"></span> {{ $message }}</p>
 @endif
 @if ($message = Session::get('error'))
-    <p style="color:red"><span class="glyphicon glyphicon-remove"></span> {{ $message }}</p>
+    <p style="color:red"><span class='glyphicon glyphicon-remove'></span> {{ $message }}</p>
 @endif
 
 <div class="panel panel-default">
 <div class="panel-heading" style="background-color:#660033;">
-      <a data-toggle="collapse" href="#collapse1">
+      <a data-toggle="collapse" href="#collapse1" onclick="tog()" id="dd" style="text-decoration: none;">
         <h4 class="panel-title" style="left:0;color:white;">
-          <strong><span class="glyphicon glyphicon-plus"></span> Accounts </strong></a>
+          <strong id="l1"></strong><strong> Active Accounts</strong></a>
         </h4>
       </div>
       </a>
@@ -50,7 +108,7 @@ ul li{
     @foreach($account_name as $name)
     <tr>
     <td>{{ $name->name }}</td>
-    <td>{{ $name->current_balance }}</td>
+    <td>₹ {{ $name->current_balance }}</td>
     <td>
     <form action="/account_delete" method="POST">{{ csrf_field() }}
     <input type="text" name="id" value="{{ $name->id }}" hidden>
@@ -64,9 +122,9 @@ ul li{
 </div>
 
 <div class="panel-heading" style="background-color:#660033;">
-      <a data-toggle="collapse" href="#collapse3">
+      <a data-toggle="collapse" href="#collapse3" onclick="tog1()" style="text-decoration: none;">
         <h4 class="panel-title" style="left:0; color:white;">
-          <strong><span class="glyphicon glyphicon-plus"></span> Periodic Transaction </strong></a>
+        <strong id="l2"></strong> <strong> Periodic Transaction</strong></a>
         </h4>
       </div>
       </a>
@@ -86,7 +144,7 @@ ul li{
     @foreach($periodic as $dd)
     <tr>
     <td>{{ $dd->account_name }}</td>
-    <td>{{ $dd->amount }}</td>
+    <td>₹ {{ $dd->amount }}</td>
     <td>{{ $duration[$dd->duration] }}</td>
     <td>{{ $dd->created_at }}</td>
     <td>
@@ -104,9 +162,9 @@ ul li{
 @endif
 </div>
 <div class="panel-heading" style="background-color:#660033;">
-      <a data-toggle="collapse" href="#collapse2">
+      <a data-toggle="collapse" href="#collapse2" onclick="tog2()" style="text-decoration: none;">
         <h4 class="panel-title" style="left:0;color:white;">
-          <strong><span class="glyphicon glyphicon-plus"></span> Change the Password</strong></a>
+          <strong id="l3"></strong><strong> Change the Password</strong></a>
         </h4>
       </div>
       </a>
@@ -130,9 +188,9 @@ ul li{
       </div>
 </div>
 <div class="panel-heading" style="background-color:#660033;">
-      <a data-toggle="collapse" href="#collapse4">
+      <a data-toggle="collapse" href="#collapse4" onclick="tog3()" style="text-decoration: none;">
         <h4 class="panel-title" style="left:0;color:white;">
-          <strong><span class="glyphicon glyphicon-plus"></span> Delete Account </strong></a>
+          <strong id="l4"></strong><strong> Delete Account</strong></a>
         </h4>
       </div>
       </a>

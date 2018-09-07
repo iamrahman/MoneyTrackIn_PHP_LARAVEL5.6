@@ -14,7 +14,10 @@
 @endif
         </center>
         <label>Enter your E-mail Address</label>
-            <input type="text" class="form-control" name="email" placeholder="Enter Email Address">
+            <input type="text" class="form-control" name="email" placeholder="Enter Email Address"><br>
+            @captcha<button type="submit" class="btn" style="background-color:#660033;color: #F0E68C;" onClick="window.location.reload()">
+            <span id="l1" class="glyphicon glyphicon-refresh"></span></button>
+            <input type="text" name="captcha" placeholder="Enter Captcha">
         </div>
         <center>
         <button type="submit" class="btn" style="background-color:#660033;color: #F0E68C;"> &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-send"></span>&nbsp;Send&nbsp;&nbsp; &nbsp;&nbsp;</button>

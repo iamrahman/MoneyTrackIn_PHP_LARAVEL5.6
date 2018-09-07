@@ -84,13 +84,13 @@ table th {
     @foreach($accounts_data as $user)
       <tr>
         <td>{{ $user->name }}</td>
-        <td>$ {{ $user->current_balance }} </td>
+        <td>₹ {{ $user->current_balance }} </td>
       </tr>
     @endforeach
       <tr>
       <th>Total</th>
       <th>
-      <?php echo "$ ".$total;?>
+      <?php echo "₹ ".$total;?>
       </th>
       </tr>
     </tbody>

@@ -38,6 +38,10 @@ class LogoutController extends Controller
     }
     public function sendEmail(Request $request)
     {
+        $validatedData = $request->validate([
+            'email' => 'required',
+            'captcha' => 'required',
+        ]);
         $this->validate($request, ['email' => 'required']);
         $verify_email = DB::table('users')->where('email', $request->input('email'))->first();
         if(count($verify_email)){

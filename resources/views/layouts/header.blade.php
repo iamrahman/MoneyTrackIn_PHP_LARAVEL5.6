@@ -11,8 +11,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/jquery.canvasjs.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/icon.png">
-
 </head>
+<style>
+.notify_body{
+  padding: 2px;
+}
+</style>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#660033; border: #660033;">
   <div class="container-fluid" style="background-color:#660033;">
@@ -38,11 +42,12 @@
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <span style="color:white;" class="glyphicon glyphicon-bell"></span><span class="badge" style="background-color:red;">{{ count(Session::get('user_alert')) }}</span></a>
-        <ul class="dropdown-menu">
+        <div class="dropdown-menu">
+        <?php $i =1; ?>
         @foreach (Session::get('user_alert') as $data)
-        <li><a href="#">{{ nl2br($data->notification) }}</a></li>
+        <div class="notify_body"><strong><?php echo $i++.". " ?></strong>{{ $data->notification }}</div><br>
         @endforeach
-        </ul>
+        </div>
       </li>
       @else
       <li><a href="/signup" style="color:#ffffff;"><span class="glyphicon glyphicon-log-in"></span> Signup</a></li>
